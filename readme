@@ -1,4 +1,4 @@
-1 - criação do projeto
+1 - Criação do projeto
     - Criação do projeto utilizando o express-generator para gerar a estrutura de pastas padrão inicial de um projeto node 
     - Utilização dos parametros -e para utilização de ejs e --git para preparação do ambiente de versionamento
     - Comando para criação do projeto ficou: express -e --git desafioFR
