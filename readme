@@ -12,3 +12,6 @@
     - Alteração de script start (package.json) para garantir inicialização de variáveis de ambiente antes do inicio da aplicação (-r dotenv/config)
     - preparação do repositório git
 
+2 - Preparação do banco de dados
+    - Criação de pasta DAO (Data access object) para armazenamento de arquivo(s) de banco de dados
+    - Criação do módulo db.js utilizado para realizar conexão com banco de dados
