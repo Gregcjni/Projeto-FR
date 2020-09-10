@@ -9,5 +9,6 @@
     - Comando de inicialização das dependencias gerais do projeto: npm install
     - Revisão do arquivo .gitignore para não realizar commit da pasta node_modules para o repositório
     - Criação dos arquivos .env e .env.example para controle de variáveis de ambiente (iniciando com variável PORT=3000)
-
+    - Alteração de script start (package.json) para garantir inicialização de variáveis de ambiente antes do inicio da aplicação (-r dotenv/config)
+    - preparação do repositório git
 
