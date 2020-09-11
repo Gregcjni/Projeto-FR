@@ -7,10 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('desafiofr:server');
 var http = require('http');
+var mysqlDb = require('../dao/db');
 
 /**
  * Get port from environment and store in Express.
  */
+mysqlDb.connectDataBase();
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);

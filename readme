@@ -13,5 +13,13 @@
     - preparação do repositório git
 
 2 - Preparação do banco de dados
-    - Criação de pasta DAO (Data access object) para armazenamento de arquivo(s) de banco de dados
-    - Criação do módulo db.js utilizado para realizar conexão com banco de dados
+    - (*) Para utilização do banco de dados, será necessário preencher as variáveis de host, user e senha no arquivo .env- Criação de pasta DAO (Data access object) para armazenamento de arquivo(s) de banco de dados
+    - Criação do módulo db.js utilizado para realizar conexão com banco de dados utilizando o padrão de projeto Singleton (apenas uma instância de conexão ao banco de dados)
+    - Alteração da utilização do pacote mysql para mysql2 que será utilizado pelo pacote sequelize
+    - Instalação e utilização do pacote Sequelize para manipulação do banco de dados de forma mais prática
+    - Criação de funções para conexão com mysql 
+    - Criação de função para geração de banco de dados próprio da API e das tabelas a serem utilizadas
+    - Com as funções citadas acima, não será necessário nenhum setup manual do banco de dados
+    - Embora procuro estar utilizando a lingua inglesa no desenvolvimento do software, utilizei nomes em português para o banco de dados
+    - A escolha da lingua portuguesa para o banco de dados foi em função do documento de requisitos, que pediu campos específicos como obrigatórios
+    
