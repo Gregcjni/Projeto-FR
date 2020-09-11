@@ -1,25 +1,29 @@
-1 - Criação do projeto
-    - Criação do projeto utilizando o express-generator para gerar a estrutura de pastas padrão inicial de um projeto node 
-    - Utilização dos parametros -e para utilização de ejs e --git para preparação do ambiente de versionamento
-    - Comando para criação do projeto ficou: express -e --git desafioFR
-    - Instalação de dependência para mysql no projeto
-    - Comando para instalação do pacote: npm install -s  mysql 
-    - Instalação de pacote dotenv-safe ao projeto para controle de variáveis de ambiente e redução de valores fixos no código.
-    - Comando para instalação do pacote: npm install dotenv-safe
-    - Comando de inicialização das dependencias gerais do projeto: npm install
-    - Revisão do arquivo .gitignore para não realizar commit da pasta node_modules para o repositório
-    - Criação dos arquivos .env e .env.example para controle de variáveis de ambiente (iniciando com variável PORT=3000)
-    - Alteração de script start (package.json) para garantir inicialização de variáveis de ambiente antes do inicio da aplicação (-r dotenv/config)
-    - preparação do repositório git
+1 - Criação do projeto;
+    - Criação do projeto utilizando o express-generator para gerar a estrutura de pastas padrão inicial de um projeto node ;
+    - Utilização dos parametros -e para utilização de ejs e --git para preparação do ambiente de versionamento;
+    - Comando para criação do projeto ficou: express -e --git desafioFR;
+    - Instalação de dependência para mysql no projeto;
+    - Comando para instalação do pacote: npm install -s  mysql ;
+    - Instalação de pacote dotenv-safe ao projeto para controle de variáveis de ambiente e redução de valores fixos no código;
+    - Comando para instalação do pacote: npm install dotenv-safe;
+    - Comando de inicialização das dependencias gerais do projeto: npm install;
+    - Revisão do arquivo .gitignore para não realizar commit da pasta node_modules para o repositório;
+    - Criação dos arquivos .env e .env.example para controle de variáveis de ambiente (iniciando com variável PORT=3000);
+    - Alteração de script start (package.json) para garantir inicialização de variáveis de ambiente antes do inicio da aplicação (-r dotenv/config);
+    - preparação do repositório git;
 
-2 - Preparação do banco de dados
-    - (*) Para utilização do banco de dados, será necessário preencher as variáveis de host, user e senha no arquivo .env- Criação de pasta DAO (Data access object) para armazenamento de arquivo(s) de banco de dados
-    - Criação do módulo db.js utilizado para realizar conexão com banco de dados utilizando o padrão de projeto Singleton (apenas uma instância de conexão ao banco de dados)
-    - Alteração da utilização do pacote mysql para mysql2 que será utilizado pelo pacote sequelize
-    - Instalação e utilização do pacote Sequelize para manipulação do banco de dados de forma mais prática
-    - Criação de funções para conexão com mysql 
-    - Criação de função para geração de banco de dados próprio da API e das tabelas a serem utilizadas
-    - Com as funções citadas acima, não será necessário nenhum setup manual do banco de dados
-    - Embora procuro estar utilizando a lingua inglesa no desenvolvimento do software, utilizei nomes em português para o banco de dados
-    - A escolha da lingua portuguesa para o banco de dados foi em função do documento de requisitos, que pediu campos específicos como obrigatórios
-    
+2 - Preparação do banco de dados;
+    - (*) Para utilização do banco de dados, será necessário preencher as variáveis de host, user e senha no arquivo .env- Criação de pasta DAO (Data access object) para armazenamento de arquivo(s) de banco de dados;
+    - Criação do módulo db.js utilizado para realizar conexão com banco de dados utilizando o padrão de projeto Singleton (apenas uma instância de conexão ao banco de dados);
+    - Alteração da utilização do pacote mysql para mysql2 que será utilizado pelo pacote sequelize;
+    - Instalação e utilização do pacote Sequelize para manipulação do banco de dados de forma mais prática;
+    - Criação de funções para conexão com mysql ;
+    - Criação de função para geração de banco de dados próprio da API e das tabelas a serem utilizadas;
+    - Com as funções citadas acima, não será necessário nenhum setup manual do banco de dados;
+    - Embora procuro estar utilizando a lingua inglesa no desenvolvimento do software, utilizei nomes em português para o banco de dados;
+    - A escolha da lingua portuguesa para o banco de dados foi em função do documento de requisitos, que pediu campos específicos como obrigatórios;
+    - Implementação de Async Await para as funções de geração do banco de dados;
+    - Criação de tabelas associativas para armazenamento de Itens do Carrinho e Itens do Pedido;
+
+Observações gerais
+    - Procurei manter o readme mais detalhado possível para reduzir a necessidade de muitos comentários no código fonte procurando me aproximar dos princípios Clean Code;

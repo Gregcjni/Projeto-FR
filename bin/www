@@ -12,7 +12,7 @@ var mysqlDb = require('../dao/db');
 /**
  * Get port from environment and store in Express.
  */
-mysqlDb.connectDataBase();
+mysqlDb.dbInit()
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
