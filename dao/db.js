@@ -2,15 +2,15 @@ const Sequelize = require('sequelize');
 const dbName = "fr_test_gregory" //criação de um nome que acredito não conflitar com nenhum outro banco
 
 function connectDataBase() {
-         global.connection = new Sequelize("fr_test_gregory", process.env.DBUSER, process.env.DBPASS,
-            { host: "localhost", dialect: 'mysql' });
-        return global.connection.authenticate(); 
+    global.connection = new Sequelize("fr_test_gregory", process.env.DBUSER, process.env.DBPASS,
+        { host: "localhost", dialect: 'mysql' });
+    return global.connection.authenticate();
 }
 
 function firstConnection() {
-        global.connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
-            { host: "localhost", dialect: 'mysql' });
-        return global.connection.authenticate(); 
+    global.connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
+        { host: "localhost", dialect: 'mysql' });
+    return global.connection.authenticate();
 }
 
 /*função que irá preparar o banco de dados e 
@@ -50,8 +50,20 @@ async function tablesInit() {
     });
 
     const CartItems = global.connection.define('itensCarrinhos', {
-        idProduto: { type: Sequelize.STRING },
-        idCarrinho: { type: Sequelize.STRING },
+        idProduto: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: { model: "produtos", key: "id" },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+        },
+        idCarrinho: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: { model: "carrinhos", key: "id" },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+        },
         quantidade: { type: Sequelize.INTEGER },
         excluido: { type: Sequelize.BOOLEAN }
     });
@@ -62,12 +74,31 @@ async function tablesInit() {
         dataCriacao: { type: Sequelize.DATE },
         valorTotal: { type: Sequelize.FLOAT },
         status: { type: Sequelize.STRING },
-        idCarrinho: { type: Sequelize.STRING },
+        idCarrinho: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: { model: "carrinhos", key: "id" },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+        },
         excluido: { type: Sequelize.BOOLEAN }
     });
 
     const OrderItems = global.connection.define('itensPedidos', {
-        idProduto: { type: Sequelize.TEXT },
+        idProduto: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: { model: "produtos", key: "id" },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+        },
+        idPedido: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: { model: "pedidos", key: "id" },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+        },
         nome: { type: Sequelize.STRING },
         preco: { type: Sequelize.FLOAT },
         quantidade: { type: Sequelize.INTEGER }
@@ -79,7 +110,7 @@ async function tablesInit() {
     await Order.sync();
     await OrderItems.sync();
 
-    
+
 }
 
 module.exports = { connectDataBase, dbInit };
