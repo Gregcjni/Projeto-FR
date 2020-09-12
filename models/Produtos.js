@@ -8,7 +8,7 @@ class Produtos extends Model {
             preco: DataTypes.FLOAT,
             imagem: DataTypes.STRING,
             tags: DataTypes.STRING,
-            status: DataTypes.STRING,
+            status: DataTypes.STRING, 
             excluido: DataTypes.BOOLEAN
         }, {sequelize: connection })
     };

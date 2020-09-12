@@ -1,4 +1,9 @@
 const Sequelize = require('sequelize');
+const Carrinhos = require('../models/Carrinhos');
+const Pedidos = require('../models/Pedidos');
+const Produtos = require('../models/Produtos');
+const ItensCarrinhos = require('../models/ItensCarrinhos');
+const ItensPedidos = require('../models/ItensPedidos');
 const dbName = "fr_test_gregory" //criação de um nome que acredito não conflitar com nenhum outro banco
 
 function connectDataBase() {
@@ -43,9 +48,8 @@ async function tablesInit() {
     });
 
     const Cart = global.connection.define('carrinhos', {
-        idCliente: { type: Sequelize.STRING },
-        dataCriacao: { type: Sequelize.DATE },
-        horaCriacao: { type: Sequelize.TIME },
+        idCliente: { type: Sequelize.INTEGER },
+        status: { type: Sequelize.STRING },
         excluido: { type: Sequelize.BOOLEAN }
     });
 
@@ -71,7 +75,6 @@ async function tablesInit() {
     const Order = global.connection.define('pedidos', {
         formaPagamento: { type: Sequelize.STRING },
         enderecoEntrega: { type: Sequelize.STRING },
-        dataCriacao: { type: Sequelize.DATE },
         valorTotal: { type: Sequelize.FLOAT },
         status: { type: Sequelize.STRING },
         idCarrinho: {
@@ -109,7 +112,6 @@ async function tablesInit() {
     await CartItems.sync();
     await Order.sync();
     await OrderItems.sync();
-
 
 }
 

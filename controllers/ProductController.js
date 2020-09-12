@@ -1,5 +1,4 @@
 const Produtos = require('../models/Produtos');
-const mysqlDB = require("../dao/db");
 const db = require('../dao/db');
 
 async function createProduct(req, res, next) {
