@@ -2,19 +2,22 @@ const Sequelize = require('sequelize');
 const dbName = "fr_test_gregory" //criação de um nome que acredito não conflitar com nenhum outro banco
 
 function connectDataBase() {
-    if (!global.connection) { //testa se a conexão está ativa, se não estiver, monta
-        global.connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
+         global.connection = new Sequelize("fr_test_gregory", process.env.DBUSER, process.env.DBPASS,
             { host: "localhost", dialect: 'mysql' });
-        return global.connection.authenticate();
-    }
+        return global.connection.authenticate(); 
 }
 
+function firstConnection() {
+        global.connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
+            { host: "localhost", dialect: 'mysql' });
+        return global.connection.authenticate(); 
+}
 
 /*função que irá preparar o banco de dados e 
     as tabelas necessárias para a utilização da aplicação .*/
 async function dbInit() {
     try {
-        await connectDataBase()
+        await firstConnection()
         console.log("Database connected...")
         await global.connection.query('CREATE DATABASE IF NOT EXISTS ' + dbName);
         console.log("Database is created: " + dbName);
@@ -46,7 +49,7 @@ async function tablesInit() {
         excluido: { type: Sequelize.BOOLEAN }
     });
 
-    const CartItems = global.connection.define('itensCarrinho', {
+    const CartItems = global.connection.define('itensCarrinhos', {
         idProduto: { type: Sequelize.STRING },
         idCarrinho: { type: Sequelize.STRING },
         quantidade: { type: Sequelize.INTEGER },
@@ -63,19 +66,20 @@ async function tablesInit() {
         excluido: { type: Sequelize.BOOLEAN }
     });
 
-    const OrderItems = global.connection.define('itensPedido', {
+    const OrderItems = global.connection.define('itensPedidos', {
         idProduto: { type: Sequelize.TEXT },
         nome: { type: Sequelize.STRING },
         preco: { type: Sequelize.FLOAT },
         quantidade: { type: Sequelize.INTEGER }
     });
 
-    await Products.sync({ force: true });
-    await Cart.sync({ force: true });
-    await CartItems.sync({ force: true });
-    await Order.sync({ force: true });
-    await OrderItems.sync({ force: true });
+    await Products.sync();
+    await Cart.sync();
+    await CartItems.sync();
+    await Order.sync();
+    await OrderItems.sync();
 
+    
 }
 
 module.exports = { connectDataBase, dbInit };
