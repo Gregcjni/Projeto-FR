@@ -24,6 +24,7 @@
     - A escolha da lingua portuguesa para o banco de dados foi em função do documento de requisitos, que pediu campos específicos como obrigatórios;
     - Implementação de Async Await para as funções de geração do banco de dados;
     - Criação de tabelas associativas para armazenamento de Itens do Carrinho e Itens do Pedido;
+    - Optei por usar Sync(sequelize) ao invés de Migrations(sequelize-cli) por não ser um projeto tão extenso, para reduzir quantidades de scripts para montagem do ambiente e para evitar a redundância de montagem da estrura das entidades modelo 
 
 Observações gerais
     - Procurei manter o readme mais detalhado possível para reduzir a necessidade de muitos comentários no código fonte procurando me aproximar dos princípios Clean Code;

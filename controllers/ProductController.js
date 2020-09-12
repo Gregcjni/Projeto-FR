@@ -20,7 +20,7 @@ async function readProducts(req, res, next) {
     try {
         await db.connectDataBase();
         Produtos.init(global.connection);
-        const products = await Produtos.findAll({where: {status:"Ativo"}});
+        const products = await Produtos.findAll({ where: { status: "Ativo" } });
         return res.status(200).json(products);
     } catch (error) {
         let message = "Não foi possível incluir, verifique os parâmetros";
@@ -47,7 +47,7 @@ async function deleteProduct(req, res, next) {
         await db.connectDataBase();
         Produtos.init(global.connection);
         const { id } = req.body;
-        const products = await Produtos.destroy({ where: { id:id } });
+        const products = await Produtos.destroy({ where: { id: id } });
         return res.status(200);
     } catch (error) {
         let message = "Não foi possível excluir, verifique os parâmetros";
