@@ -7,13 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('desafiofr:server');
 var http = require('http');
-var mysqlDb = require('../dao/db');
+
+const db = require('../dao/db');
+db.dbInit();
 
 /**
  * Get port from environment and store in Express.
  */
-mysqlDb.dbInit()
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 

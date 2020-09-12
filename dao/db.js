@@ -4,10 +4,12 @@ const Pedidos = require('../models/Pedidos');
 const Produtos = require('../models/Produtos');
 const ItensCarrinhos = require('../models/ItensCarrinhos');
 const ItensPedidos = require('../models/ItensPedidos');
-const dbName = "fr_test_gregory" //criação de um nome que acredito não conflitar com nenhum outro banco
+
+//criação de um nome que acredito não conflitar com nenhum outro banco
+const dbName = "fr_test_gregory" 
 
 function connectDataBase() {
-    global.connection = new Sequelize("fr_test_gregory", process.env.DBUSER, process.env.DBPASS,
+    global.connection = new Sequelize(dbName, process.env.DBUSER, process.env.DBPASS,
         { host: "localhost", dialect: 'mysql' });
     return global.connection.authenticate();
 }
@@ -21,17 +23,20 @@ function firstConnection() {
 /*função que irá preparar o banco de dados e 
     as tabelas necessárias para a utilização da aplicação .*/
 async function dbInit() {
-    try {
-        await firstConnection()
-        console.log("Database connected...")
-        await global.connection.query('CREATE DATABASE IF NOT EXISTS ' + dbName);
-        console.log("Database is created: " + dbName);
-        await global.connection.query("use " + dbName);
-        console.log("Syncing tables...");
-        await tablesInit();
-        console.log("Tables are created.");
-    } catch (error) {
-        console.log("Problem while preparing database: " + error);
+    connectDataBase()
+    if (!global.connection){
+        try {
+            await firstConnection()
+            console.log("Database connected...")
+            await global.connection.query('CREATE DATABASE IF NOT EXISTS ' + dbName);
+            console.log("Database is created: " + dbName);
+            await global.connection.query("use " + dbName);
+            console.log("Syncing tables...");
+            await tablesInit();
+            console.log("Tables are created.");
+        } catch (error) {
+            console.log("Problem while preparing database: " + error);
+        }
     }
 }
 
@@ -115,4 +120,4 @@ async function tablesInit() {
 
 }
 
-module.exports = { connectDataBase, dbInit };
+module.exports = { dbInit };

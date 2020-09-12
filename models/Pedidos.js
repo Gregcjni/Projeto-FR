@@ -12,6 +12,10 @@ class Pedidos extends Model {
             excluido: DataTypes.BOOLEAN
         }, {sequelize: connection })
     };
+    static associate(models) {
+        this.hasOne(models.Carrinhos, { foreignKey: "id", as: "carrinhoFinalizado" });
+        this.hasMany(models.ItensPedidos, { foreignKey: "idPedido", as: "itensPedido" });
+    }
 }
  
 module.exports = Pedidos;
