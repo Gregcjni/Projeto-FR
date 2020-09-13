@@ -7,8 +7,7 @@ var logger = require('morgan');
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/productsRoutes');
 const cartsRouter = require('./routes/cartsRoutes');
-
-const app = express();;
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

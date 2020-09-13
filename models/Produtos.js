@@ -13,8 +13,8 @@ class Produtos extends Model {
         }, { sequelize: connection })
     };
     static associate(models) {
-        this.hasOne(models.ItensCarrinhos, { foreignKey: "idProduto", as: "itemCarrinho" });
-        this.hasOne(models.ItensPedidos, { foreignKey: "idProduto", as: "itemPedido" });
+        this.belongsToMany(models.ItensCarrinhos, { foreignKey: "idProduto", as: "itemCarrinho" });
+        this.belongsToMany(models.ItensPedidos, { foreignKey: "idProduto", as: "itemPedido" });
     }
 }
 

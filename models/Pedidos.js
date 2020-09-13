@@ -7,15 +7,15 @@ class Pedidos extends Model {
             formaPagamento: DataTypes.STRING,
             enderecoEntrega: DataTypes.TEXT,
             valorTotal: DataTypes.FLOAT,
-            status: DataTypes.STRING, 
+            status: DataTypes.STRING,
             status: DataTypes.STRING,
             excluido: DataTypes.BOOLEAN
-        }, {sequelize: connection })
+        }, { sequelize: connection })
     };
     static associate(models) {
         this.hasOne(models.Carrinhos, { foreignKey: "id", as: "carrinhoFinalizado" });
         this.hasMany(models.ItensPedidos, { foreignKey: "idPedido", as: "itensPedido" });
     }
 }
- 
+
 module.exports = Pedidos;

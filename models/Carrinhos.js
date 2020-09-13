@@ -5,7 +5,7 @@ class Carrinhos extends Model {
     static init(connection) {
         super.init({
             idCliente: DataTypes.INTEGER,
-            status: DataTypes.BOOLEAN,
+            status: DataTypes.STRING,
             excluido: DataTypes.BOOLEAN
         }, { sequelize: connection })
     }

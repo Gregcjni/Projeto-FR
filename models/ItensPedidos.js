@@ -13,7 +13,7 @@ class ItensPedidos extends Model {
     };
     static associate(models) {
         this.belongsTo(models.Pedidos, { foreignKey: "id", as: "pedidoCabecalho" });
-        this.hasOne(models.Produtos, { foreignKey: "id", as: "produto" });
+        this.belongsToMany(models.Produtos, { foreignKey: "id", as: "produto" });
     }
 }
 
