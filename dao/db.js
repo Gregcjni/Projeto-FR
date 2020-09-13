@@ -23,5 +23,4 @@ ItensCarrinhos.associate(connection.models);
 Pedidos.associate(connection.models);
 ItensPedidos.associate(connection.models);
 
-
 module.exports = connection;

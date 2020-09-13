@@ -25,7 +25,8 @@ async function updateProduct(req, res, next) {
         const { id, nome, descricao, preco, imagem, tags, status } = req.body;
         console.log("updating product of id: " + id);
         await Produtos.update({ nome, descricao, preco, imagem, tags, status }, { where: { id: id } });
-        return res.status(200);
+        product = await Produtos.findByPk(id);
+        return res.status(200).send(product);
     } catch (error) {
         res.send(error);
     }

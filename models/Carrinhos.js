@@ -6,13 +6,13 @@ class Carrinhos extends Model {
         super.init({
             idCliente: DataTypes.INTEGER,
             status: DataTypes.STRING,
-            excluido: DataTypes.BOOLEAN
         }, { sequelize: connection })
     }
 
     static associate(models) {
-        this.hasMany(models.ItensCarrinhos, { foreignKey: "idCarrinho", as: "itensCarrinho" });
-        this.hasOne(models.Pedidos, { foreignKey: "idCarrinho", as: "pedidoGerado" });
+        this.belongsToMany(models.Produtos, { through: "ItensCarrinhos", foreignKey: "idCarrinho" });
+        this.hasOne(models.Pedidos);
+        this.hasMany(models.ItensCarrinhos, {foreignKey:"idCarrinho"});
     }
 };
 

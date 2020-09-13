@@ -1,26 +1,41 @@
-const { findOrCreate } = require('../models/Carrinhos');
+const Carrinhos = require('../models/Carrinhos');
+const Produtos = require('../models/Produtos');
+const ItensCarrinhos = require('../models/ItensCarrinhos');
 
-async function adddProducts(req, res, next) {
+async function addProductsToCart(req, res, next) {
     try {
-        const cart = Carrinhos.findAll({ where: { status: "Ativo" } })
-        if (!cart) {
-            cart = Carrinhos.create()
-        }
+        const [cart] = await Carrinhos.findOrCreate({ where: { status: "Ativo" } })
         const { idProduto, quantidade } = req.body;
-        const cartItem = ItensCarrinhos.create({ idProduto, quantidade });
-        res.status(200).send(cart)
+        const product = await Produtos.findAll({ id: idProduto });
+        if (!product) {
+            return res.status(422), send("Produto não encontrado");
+        } else if (quantidade < 1) {
+            return res.status(422), send("Quantidade precisa ser maior que zero.");
+        }
+        await cart.addProdutos(product, { through: { quantidade } });
+        const result = await Carrinhos.findOne({
+            where: { status: "Ativo" },
+            include: ItensCarrinhos
+        });
+        res.status(200).send(result)
     } catch (error) {
-        let message = "Não foi possível incluir, verifique os parâmetros";
-        res.send({ message, error });
+        res.send(error);
+        console.log(error);
     }
 }
 
 async function finish(req, res, next) {
-    res.status(200);
+    
+    
+    
 }
 
 async function show(req, res, next) {
-    res.status(200);
+    const result = await Carrinhos.findOne({
+        where: { status: "Ativo" },
+        include: ItensCarrinhos
+    });
+    res.status(200).send(result)
 }
 
-module.exports = { adddProducts, finish, show };
+module.exports = { addProductsToCart, finish, show };

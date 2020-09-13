@@ -8,13 +8,12 @@ class Produtos extends Model {
             preco: DataTypes.FLOAT,
             imagem: DataTypes.STRING,
             tags: DataTypes.STRING,
-            status: DataTypes.STRING,
-            excluido: DataTypes.BOOLEAN
+            status: DataTypes.STRING
         }, { sequelize: connection })
     };
     static associate(models) {
-        this.belongsToMany(models.ItensCarrinhos, { foreignKey: "idProduto", as: "itemCarrinho" });
-        this.belongsToMany(models.ItensPedidos, { foreignKey: "idProduto", as: "itemPedido" });
+        this.belongsToMany(models.Carrinhos, { through: "ItensCarrinhos", foreignKey: "idProduto" });
+        this.belongsToMany(models.Pedidos, { through: "ItensPedidos", foreignKey: "idProduto" });
     }
 }
 

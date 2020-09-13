@@ -7,13 +7,12 @@ class ItensPedidos extends Model {
             idPedido: DataTypes.INTEGER,
             nome: DataTypes.STRING,
             preco: DataTypes.FLOAT,
-            quantidade: DataTypes.INTEGER,
-            excluido: DataTypes.BOOLEAN
+            quantidade: DataTypes.INTEGER
         }, { sequelize: connection })
     };
     static associate(models) {
-        this.belongsTo(models.Pedidos, { foreignKey: "id", as: "pedidoCabecalho" });
-        this.belongsToMany(models.Produtos, { foreignKey: "id", as: "produto" });
+        this.belongsTo(models.Produtos);
+        this.belongsTo(models.Carrinhos);
     }
 }
 
