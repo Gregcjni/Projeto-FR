@@ -3,8 +3,8 @@ const ItensCarrinhos = require('./ItensCarrinhos');
 
 class Carrinhos extends Model {
     static init(connection) {
-        super.init({
-            idCliente: DataTypes.INTEGER,
+        super.init({ 
+           idCliente: DataTypes.INTEGER,
             status: DataTypes.STRING,
         }, { sequelize: connection })
     }
