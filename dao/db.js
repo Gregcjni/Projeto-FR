@@ -4,23 +4,42 @@ const ItensCarrinhos = require('../models/ItensCarrinhos');
 const Produtos = require('../models/Produtos');
 const ItensPedidos = require('../models/ItensPedidos');
 const Pedidos = require('../models/Pedidos');
+const build = require('./buildSchema')
 
 //criação de um nome que acredito não conflitar com nenhum outro banco
-const dbName = "fr_test_gregory"
 
-const connection = new Sequelize(dbName, process.env.DBUSER, process.env.DBPASS,
-    { host: "localhost", dialect: 'mysql' });
 
-Produtos.init(connection);
-Carrinhos.init(connection);
-ItensCarrinhos.init(connection);
-Pedidos.init(connection);
-ItensPedidos.init(connection);
+const connection = connect()
 
-Produtos.associate(connection.models);
-Carrinhos.associate(connection.models);
-ItensCarrinhos.associate(connection.models);
-Pedidos.associate(connection.models);
-ItensPedidos.associate(connection.models);
+async function connect() {
+    let con;
+    try {
+        con = await new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASS,
+            { host: "localhost", dialect: 'mysql' });
+        await con.authenticate();
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        build.createEnvironment();
+        con = new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASS,
+            { host: "localhost", dialect: 'mysql' });
+    }
+
+    //inicialização das entidades modelo
+    Produtos.init(con);
+    Carrinhos.init(con);
+    ItensCarrinhos.init(con);
+    Pedidos.init(con);
+    ItensPedidos.init(con);
+    
+    //associações entre entidades modelo
+    Produtos.associate(con.models);
+    Carrinhos.associate(con.models);
+    ItensCarrinhos.associate(con.models);
+    Pedidos.associate(con.models);
+    ItensPedidos.associate(con.models);
+    
+    return con;
+    
+}
 
 module.exports = connection;
