@@ -30,12 +30,13 @@ async function updateProduct(req, res, next) {
     } catch (error) {
         res.send(error);
     }
+    
 }
 
 async function deleteProduct(req, res, next) {
     try {
         const { id } = req.body;
-        const products = await Produtos.destroy({ where: { id: id } });
+        const products = await Produtos.destroy({ where:{id}});
         return res.status(200);
     } catch (error) {
         res.send(error);

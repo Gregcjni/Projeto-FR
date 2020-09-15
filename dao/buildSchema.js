@@ -6,16 +6,18 @@ const ItensPedidos = require('../models/ItensPedidos');
 
 /*função que irá preparar o banco de dados e 
 as tabelas necessárias para a utilização da aplicação .*/
-const connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
+async function createEnvironment(){
+    const connection = new Sequelize("", process.env.DBUSER, process.env.DBPASS,
     { host: "localhost", dialect: 'mysql' });
 
-console.log("Database connected...")
-connection.query('CREATE DATABASE IF NOT EXISTS ' + dbName);
-console.log("Database is created: " + dbName);
-connection.query("use " + dbName);
-console.log("Syncing tables...");
-tablesInit();
-console.log("Tables are created.");
+    console.log("Database connected...")
+    connection.query('CREATE DATABASE IF NOT EXISTS ' + dbName);
+    console.log("Database is created: " + dbName);
+    connection.query("use " + dbName);
+    console.log("Syncing tables...");
+    tablesInit();
+    console.log("Tables are created.");
+}
 
 async function tablesInit() {
 

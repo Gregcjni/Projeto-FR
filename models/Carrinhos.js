@@ -11,7 +11,6 @@ class Carrinhos extends Model {
 
     static associate(models) {
         this.belongsToMany(models.Produtos, { through: "ItensCarrinhos", foreignKey: "idCarrinho" });
-        this.hasOne(models.Pedidos);
         this.hasMany(models.ItensCarrinhos, {foreignKey:"idCarrinho"});
     }
 };

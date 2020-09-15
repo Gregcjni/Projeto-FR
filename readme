@@ -25,7 +25,15 @@
     - Implementação de Async Await para as funções de geração do banco de dados;
     - Criação de tabelas associativas para armazenamento de Itens do Carrinho e Itens do Pedido;
     - Optei por usar Sync(sequelize) ao invés de Migrations(sequelize-cli) por não ser um projeto tão extenso, para reduzir quantidades de scripts para montagem do ambiente e para evitar a redundância de montagem da estrura das entidades modelo 
-    - Criadas associações entre tabelas para unificas as queries de busca para pedidos x itens, carrinho x itens do carrinho, e produtos x itens
+    - Criadas associações entre tabelas para unificar as queries de busca para pedidos x itens, carrinho x itens do carrinho, e produtos x itens
+
+3 - desenvolvimento de rotas http 
+    - criação de rotas get, post, put e delete para operações CRUD de pedidos;
+    - criaão de rotas get e post na raiz do caminho "/cart" para inclusão de produtos e retorno de dados do carrinho;
+    - criação de rota post no caminho "/finish" da rota de caminho "/cart" para abstrair o requisito de finalizar carrinho;
+    - criação de controllers para gerenciamento de funções 
 
 Observações gerais
     - Procurei manter o readme mais detalhado possível para reduzir a necessidade de muitos comentários no código fonte procurando me aproximar dos princípios Clean Code;
+    - utilização de padrão MVC onde M são as entidades do banco de dados, View são as rotas de acesso e C é a camada de controle para entrada (requisições) e saída(resostas) dos dados das rotas
+    
