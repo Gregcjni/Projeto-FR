@@ -42,7 +42,7 @@ async function finish(req, res, next) {
                 }
             }
         });
-        
+
         /* validação para, caso não tenha sido incluído nenhum produto, 
         não há carrinho e nesse caso, não gera pedido */
         if (!cart)
@@ -54,9 +54,9 @@ async function finish(req, res, next) {
         //validação do valor total do pedido 
         const itens = cart.ItensCarrinhos;
         for (var index = 0; index < itens.length; index++) {
-            totalValue += (itens[index].Produto.preco * itens[index].quantidade)  
+            totalValue += (itens[index].Produto.preco * itens[index].quantidade)
         }
-         
+
         //retorno com status 400, dado o controle por parte do usuário do valor total
         if (totalValue < 10)
             return res.status(400).send({ resultMessage: "Não é possível gerar um pedido com valor inferior a R$10,00" });
@@ -67,7 +67,7 @@ async function finish(req, res, next) {
             enderecoEntrega: endereco,
             valorTotal: totalValue,
             status: "Novo"
-        }); 
+        });
 
         //criação dos itens do pedido, a partir dos itens do carrinho
         for (var index = 0; index < itens.length; index++) {
@@ -78,10 +78,10 @@ async function finish(req, res, next) {
                     nome: product.nome,
                     preco: product.preco,
                 }
-            } );
+            });
         }
 
-        await Carrinhos.update({status:"finalizado"}, {where: {id:cart.id}});
+        await Carrinhos.update({ status: "finalizado" }, { where: { id: cart.id } });
 
         res.status(200).send(order);
 

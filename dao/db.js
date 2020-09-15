@@ -30,16 +30,16 @@ async function connect() {
     ItensCarrinhos.init(con);
     Pedidos.init(con);
     ItensPedidos.init(con);
-    
+
     //associações entre entidades modelo
     Produtos.associate(con.models);
     Carrinhos.associate(con.models);
     ItensCarrinhos.associate(con.models);
     Pedidos.associate(con.models);
     ItensPedidos.associate(con.models);
-    
+
     return con;
-    
+
 }
 
 module.exports = connection;

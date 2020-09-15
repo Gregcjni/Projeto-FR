@@ -9,9 +9,9 @@ const ItensPedidos = require('../models/ItensPedidos');
 
 /*função que irá preparar o banco de dados e 
 as tabelas necessárias para a utilização da aplicação .*/
-async function createEnvironment(){
+async function createEnvironment() {
     const connection = await new Sequelize("", process.env.DBUSER, process.env.DBPASS,
-    { host: "localhost", dialect: 'mysql' });
+        { host: "localhost", dialect: 'mysql' });
 
     console.log("Database connected...")
     await connection.query('CREATE DATABASE IF NOT EXISTS ' + process.env.DBNAME);
@@ -88,7 +88,7 @@ async function tablesInit(connection) {
     await CartItems.sync();
     await Order.sync();
     await OrderItems.sync();
-    
+
 }
 
-module.exports = {createEnvironment}
+module.exports = { createEnvironment }
