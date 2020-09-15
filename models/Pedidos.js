@@ -10,8 +10,8 @@ class Pedidos extends Model {
         }, { sequelize: connection })
     };
     static associate(models) {
-        this.belongsToMany(models.Produtos, { through: "ItensPedidos", foreignKey: "idPediso" });
-        this.hasMany(models.ItensPedidos);
+        this.belongsToMany(models.Produtos, { through: "ItensPedidos", foreignKey: "idPedido" });
+        this.hasMany(models.ItensPedidos, {foreignKey:"idPedido"});
     }
 }
 

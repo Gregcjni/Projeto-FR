@@ -27,14 +27,14 @@ async function addProductsToCart(req, res, next) {
         res.status(200).send({ id });
     } catch (error) {
         res.send(error);
-        console.log(error);
     }
 }
 
 async function finish(req, res, next) {
 
-    let valorTotal = 0
+    let totalValue = 0
     try {
+        //Consulta do carrinho fazendo um join de forma automática com seus itens e produtos 
         const cart = await Carrinhos.findOne({
             where: { status: "Ativo" }, include: {
                 model: ItensCarrinhos, include: {
@@ -42,46 +42,48 @@ async function finish(req, res, next) {
                 }
             }
         });
-
-        //caso não tenha sido incluido nenhum produto, não há carrinho e nesse caso, não gera pedido
+        
+        /* validação para, caso não tenha sido incluído nenhum produto, 
+        não há carrinho e nesse caso, não gera pedido */
         if (!cart)
             return res.status(400).send({ resultMessage: "Não há produtos no carrinho!" });
 
+        //recuperação dos paramertros enviados no corpo da requisição
         const { formaPagamento, endereco } = req.body;
 
+        //validação do valor total do pedido 
         const itens = cart.ItensCarrinhos;
         for (var index = 0; index < itens.length; index++) {
-            valorTotal += itens[index].Produto.preco;
-            console.log(valorTotal);
+            totalValue += (itens[index].Produto.preco * itens[index].quantidade)  
         }
-
-        if (valorTotal < 10)
+         
+        //retorno com status 400, dado o controle por parte do usuário do valor total
+        if (totalValue < 10)
             return res.status(400).send({ resultMessage: "Não é possível gerar um pedido com valor inferior a R$10,00" });
 
-        console.log("gerando pedido");
         //Criação do pedido
-
-
         const order = await Pedidos.create({
             formaPagamento: formaPagamento,
             enderecoEntrega: endereco,
-            valorTotal: valorTotal,
+            valorTotal: totalValue,
             status: "Novo"
-        });
-        console.log(order);
+        }); 
 
         //criação dos itens do pedido, a partir dos itens do carrinho
         for (var index = 0; index < itens.length; index++) {
             let product = itens[index].Produto;
             order.addProdutos(product, {
                 through: {
-                    quantidade: itens[index].quantidade
+                    quantidade: itens[index].quantidade,
+                    nome: product.nome,
+                    preco: product.preco,
                 }
-            }
-            );
+            } );
         }
 
-        res.status(200);
+        await Carrinhos.update({status:"finalizado"}, {where: {id:cart.id}});
+
+        res.status(200).send(order);
 
     } catch (erro) {
         res.send(erro);
