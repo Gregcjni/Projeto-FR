@@ -1,3 +1,4 @@
+"use strict";
 const Pedidos = require('../models/Pedidos');
 const ItensPedidos = require('../models/ItensPedidos');
 const { Op } = require('sequelize');

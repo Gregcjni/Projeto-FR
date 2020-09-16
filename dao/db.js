@@ -1,3 +1,4 @@
+"use strict";
 const Sequelize = require('sequelize');
 const Carrinhos = require('../models/Carrinhos');
 const ItensCarrinhos = require('../models/ItensCarrinhos');

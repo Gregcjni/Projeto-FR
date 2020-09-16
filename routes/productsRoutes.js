@@ -1,11 +1,27 @@
+"use strict";
 const express = require('express');
 const router = express.Router();
-const ProductController = require('../controllers/productController');
+const productController = require('../controllers/productController');
+const productValidator = require('../controllers/productControlValidator');
 
-router.get('/', ProductController.readProducts);
-router.get('/all/', ProductController.readAllProducts);
-router.post('/', ProductController.createProduct);
-router.put('/', ProductController.updateProduct);
-router.delete('/', ProductController.deleteProduct);
+router.get('/', 
+    productValidator.validateProductList, 
+    productController.readProducts);
+
+router.get('/all/', 
+    productValidator.validateProductList, 
+    productController.readAllProducts);
+
+router.post('/', 
+    productValidator.validateProductCreation,
+    productController.createProduct);
+
+router.put('/', 
+    productValidator.validateProductUpdate,
+    productController.updateProduct);
+
+router.delete('/', 
+    productValidator.validateProductDelete,
+    productController.deleteProduct);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+"use strict";
 const Carrinhos = require('../models/Carrinhos');
 const Produtos = require('../models/Produtos');
 const ItensCarrinhos = require('../models/ItensCarrinhos');
