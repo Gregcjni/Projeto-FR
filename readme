@@ -24,19 +24,28 @@
     - A escolha da lingua portuguesa para o banco de dados foi em função do documento de requisitos, que pediu campos específicos como obrigatórios;
     - Implementação de Async Await para as funções de geração do banco de dados;
     - Criação de tabelas associativas para armazenamento de Itens do Carrinho e Itens do Pedido;
-    - Optei por usar Sync(sequelize) ao invés de Migrations(sequelize-cli) por não ser um projeto tão extenso, para reduzir quantidades de scripts para montagem do ambiente e para evitar a redundância de montagem da estrura das entidades modelo 
-    - Criadas associações entre tabelas para unificar as queries de busca para pedidos x itens, carrinho x itens do carrinho, e produtos x itens
+    - Optei por usar Sync(sequelize) ao invés de Migrations(sequelize-cli) por não ser um projeto tão extenso, para reduzir quantidades de scripts para montagem do ambiente e para evitar a redundância de montagem da estrura das entidades modelo;
+    - Criadas associações entre tabelas para unificar as queries de busca para pedidos x itens, carrinho x itens do carrinho, e produtos x itens;
 
 3 - desenvolvimento de rotas http 
     - criação de rotas get, post, put e delete para operações CRUD de pedidos;
     - criaão de rotas get e post na raiz do caminho "/cart" para inclusão de produtos e retorno de dados do carrinho;
     - criação de rota post no caminho "/finish" da rota de caminho "/cart" para abstrair o requisito de finalizar carrinho;
-    - criação de controllers para gerenciamento de funções ligadas a modelos  
+    - criação de controllers para gerenciamento de funções ligadas a modelos;
+
+4 - Documentação da aplicação
+    - Após estudo, foi implementada a documentação da API através do pacote Swagger;
+    - Utilizada plataforma https://editor.swagger.io/ para montagem da documentação, e depois exportação em json para uso na aplicação;
+
+5 - Validação das requisições
+    - Instalação do pacote Joi para utilização de middleware de Validação;
+    - criação de camada de validação de controle (para validar requisições das rotas);
+    - inclusão de funções para validação nas chamadas de middleware das rotas;
 
 Observações gerais
     - Procurei manter o readme mais detalhado possível para reduzir a necessidade de muitos comentários no código fonte procurando me aproximar dos princípios Clean Code;
     - utilização de padrão MVC onde: 
-        - Model são as entidades do banco de dados 
-        - View está encapsulada na camada das rotas da API, que irão permitir entrada e saida de dados
-        - Controler são as camadas de controle para gestão da entrada (requisições) e saída(resostas) dos dados das rotas para com as entidades modelos. 
+        - Model são as entidades do banco de dados;
+        - View está encapsulada na camada das rotas da API, que irão permitir entrada e saida de dados;
+        - Controler são as camadas de controle para gestão da entrada (requisições) e saída(resostas) dos dados das rotas para com as entidades modelos;
         

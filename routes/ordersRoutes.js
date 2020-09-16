@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const OrderController = require('../controllers/orderController');
+const orderController = require('../controllers/orderController');
+const orderValidator = require('../controllers/orderControlValidator');
 
-router.get('/', OrderController.listOrders);
-router.put('/', OrderController.changeStatus);
+router.get('/', orderValidator.validateListOrders, orderController.listOrders);
+router.put('/', orderValidator.validateChangeStatus, orderController.changeStatus);
 
 module.exports = router;

@@ -2,7 +2,6 @@ const Carrinhos = require('../models/Carrinhos');
 const Produtos = require('../models/Produtos');
 const ItensCarrinhos = require('../models/ItensCarrinhos');
 const Pedidos = require('../models/Pedidos');
-const ItensPedidos = require('../models/ItensPedidos');
 
 async function addProductsToCart(req, res, next) {
     try {

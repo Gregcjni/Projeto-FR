@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const CartController = require('../controllers/CartController');
+const cartController = require('../controllers/cartController');
+const cartValidator = require('../controllers/cartControlValidator');
 
-router.post('/', CartController.addProductsToCart);
-router.post('/finish/', CartController.finish);
-router.get('/', CartController.showCart);
+router.post('/', cartValidator.validateAddToCart ,cartController.addProductsToCart);
+router.post('/finish/', cartController.finish);
+router.get('/', cartController.showCart);
 
 module.exports = router;

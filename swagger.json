@@ -280,9 +280,34 @@
         "tags": [
           "Pedidos"
         ],
-        "summary": "listar pedidos",
+        "summary": "Listar pedidos",
         "description": "retorna a lista dos pedidos com status diferentes de 'Cancelado' e 'Entregue'.",
         "operationId": "listarPedido",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pedido"
+              }
+            }
+          },
+          "400": {
+            "description": "Problema na requisição"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Alterar status pedidos",
+        "description": "Altera o status do pedido quando possível considerando a regra de negócio.",
+        "operationId": "alterarStatusPedido",
         "produces": [
           "application/json"
         ],
@@ -445,10 +470,54 @@
             "Saiu para entrega",
             "Entregue"
           ]
+        }
+      }
+    },
+    "Pedido": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
-        "preco": {
+        "formaPagamento": {
+          "type": "string",
+          "example": "Cartão",
+          "enum": [
+            "Cartão",
+            "Dinheiro"
+          ]
+        },
+        "enderecoEntrega": {
+          "type": "string",
+          "example": "Av. Fulano"
+        },
+        "valorTotal": {
           "type": "number",
-          "example": "1.01"
+          "example": "9.12"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status que indica situação atual do pedido",
+          "example": "Novo",
+          "enum": [
+            "Canceladp",
+            "Novo",
+            "Aceito",
+            "Saiu para entrega",
+            "Entregue"
+          ]
+        },
+        "itensPedidos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nome": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
@@ -472,12 +541,12 @@
         "itensCarrinhos": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ItensCarrino"
+            "$ref": "#/definitions/ItensCarrinhos"
           }
         }
       }
     },
-    "ItensCarrino": {
+    "ItensCarrinhos": {
       "type": "object",
       "properties": {
         "id": {
