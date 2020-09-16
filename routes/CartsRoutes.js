@@ -4,14 +4,14 @@ const router = express.Router();
 const cartController = require('../controllers/cartController');
 const cartValidator = require('../controllers/cartControlValidator');
 
-router.post('/', 
-    cartValidator.validateAddToCart ,
+router.post('/',
+    cartValidator.validateAddToCart,
     cartController.addProductsToCart);
 
-router.post('/finish/', 
+router.post('/finish/',
     cartValidator.validateFinishCart,
     cartController.finish);
-    
+
 router.get('/', cartController.showCart);
 
 module.exports = router;

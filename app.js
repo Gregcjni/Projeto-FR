@@ -27,7 +27,7 @@ app.use('/', indexRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartsRouter);
 app.use('/orders', ordersRoutes);
-app.use('/api-doc',swaggerUi.serve,swaggerUi.setup(swaggerFile));
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

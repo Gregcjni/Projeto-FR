@@ -12,7 +12,7 @@ class Pedidos extends Model {
     };
     static associate(models) {
         this.belongsToMany(models.Produtos, { through: "ItensPedidos", foreignKey: "idPedido" });
-        this.hasMany(models.ItensPedidos, {foreignKey:"idPedido"});
+        this.hasMany(models.ItensPedidos, { foreignKey: "idPedido" });
     }
 }
 

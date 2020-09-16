@@ -11,8 +11,8 @@ class ItensCarrinhos extends Model {
         }, { sequelize: connection })
     };
     static associate(models) {
-        this.belongsTo(models.Produtos, {foreignKey: 'id'});
-        this.belongsTo(models.Carrinhos, {foreignKey: 'id'});
+        this.belongsTo(models.Produtos, { foreignKey: 'id' });
+        this.belongsTo(models.Carrinhos, { foreignKey: 'id' });
     }
 }
 

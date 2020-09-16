@@ -23,11 +23,11 @@ const changeStatusSchema = Joi.object({
             .min(1),
     status:
         Joi.any().valid(
-                0, //cancelado  
-                2, //aceito
-                3, //saiu para entrega
-                4, //entregue
-            )
+            0, //cancelado  
+            2, //aceito
+            3, //saiu para entrega
+            4, //entregue
+        )
 });
 
 function validateListOrders(req, res, next) {

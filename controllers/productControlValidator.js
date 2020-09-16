@@ -102,6 +102,6 @@ function validateProductList(req, res, next) {
     }
     next();
 };
- 
 
-module.exports = { validateProductCreation, validateProductUpdate, validateProductDelete, validateProductList};
+
+module.exports = { validateProductCreation, validateProductUpdate, validateProductDelete, validateProductList };
