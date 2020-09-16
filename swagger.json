@@ -76,6 +76,9 @@
         "consumes": [
           "application/json"
         ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -86,9 +89,6 @@
               "$ref": "#/definitions/ProdutoAlteracao"
             }
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
@@ -112,8 +112,33 @@
         "summary": "Busca produtos disponíveis",
         "description": "Busca todos os produtos com status Ativo",
         "operationId": "buscarProdutos",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributo de ID",
+            "required": true,
+            "schema": {
+              "properties": {
+                "limit": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -175,6 +200,31 @@
         "summary": "Busca todos os produtos",
         "description": "Busca todos os produto, independente do status",
         "operationId": "buscarTodosProdutos",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributo de ID",
+            "required": true,
+            "schema": {
+              "properties": {
+                "limit": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
         "produces": [
           "application/json"
         ],
@@ -202,8 +252,33 @@
         "summary": "inclui item ao carrinho",
         "description": "indica o produto e a quantidade para adicionar ao carrinho",
         "operationId": "incluirNoCarrinho",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributo de ID",
+            "required": true,
+            "schema": {
+              "properties": {
+                "idProduto": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                },
+                "quantidade": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -211,11 +286,6 @@
             "schema": {
               "properties": {
                 "id": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": 1
-                },
-                "quantidade": {
                   "type": "integer",
                   "format": "int64",
                   "example": 1
@@ -259,8 +329,35 @@
         "summary": "finalizar compra",
         "description": "Executa finalização da compra para os itens que estão no carrinho",
         "operationId": "finalizarCarrinho",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributo de ID",
+            "required": true,
+            "schema": {
+              "properties": {
+                "formaPagamento": {
+                  "type": "string",
+                  "example": "Cartão",
+                  "enum": [
+                    "Dinheiro",
+                    "Cartão"
+                  ]
+                },
+                "endereco": {
+                  "type": "string",
+                  "example": "Av. Fulano"
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -283,6 +380,31 @@
         "summary": "Listar pedidos",
         "description": "retorna a lista dos pedidos com status diferentes de 'Cancelado' e 'Entregue'.",
         "operationId": "listarPedido",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributos para paginação",
+            "required": true,
+            "schema": {
+              "properties": {
+                "limit": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
         "produces": [
           "application/json"
         ],
@@ -308,6 +430,32 @@
         "summary": "Alterar status pedidos",
         "description": "Altera o status do pedido quando possível considerando a regra de negócio.",
         "operationId": "alterarStatusPedido",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributos para alteração de status, sendo: 0 - Cancelado, 2 - Aceito, 3 - Saiu para entrega, 4 - Entregue",
+            "required": true,
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1,
+                  "enum": [
+                    0,
+                    2,
+                    3,
+                    4
+                  ]
+                }
+              }
+            }
+          }
+        ],
         "produces": [
           "application/json"
         ],

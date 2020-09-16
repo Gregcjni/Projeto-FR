@@ -14,13 +14,40 @@ const addToCartSchema = Joi.object({
             .min(1),
 });
 
-function validateAddToCart(req, res, next) {
-    const { error } = addToCartSchema.validate(req.body);
+const finishCartSchema = Joi.object({
+    formaPagamento:
+        Joi.any()
+            .valid(
+                "Dinheiro",
+                "Cartão"
+            ).required(),
+    endereco:
+        Joi.string()
+            .required()
+});
+
+function validateFinishCart(req, res, next) {
+    const { error } = finishCartSchema.validate(req.body);
     if (error) {
-        return res.status(400).json({error: error.details});
+        return res.status(400).json({ error: error.details });
     }
     next();
 };
 
+function validateAddToCart(req, res, next) {
+    const { error } = addToCartSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details });
+    }
+    next();
+};
 
-module.exports = { validateAddToCart };
+function validateAddToCart(req, res, next) {
+    const { error } = addToCartSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details });
+    }
+    next();
+};
+
+module.exports = { validateAddToCart, validateFinishCart };
