@@ -1,9 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const swaggerUi = require('swagger-ui-express');
 
+const swaggerFile = require('./swagger');
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/productsRoutes');
 const cartsRouter = require('./routes/cartsRoutes');
@@ -24,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartsRouter);
 app.use('/orders', ordersRoutes);
+app.use('/api-doc',swaggerUi.serve,swaggerUi.setup(swaggerFile));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

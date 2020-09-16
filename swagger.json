@@ -1,0 +1,307 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API para gestão de produtos, carrinho e pedidos de venda.",
+      "version": "1.0.0",
+      "title": "FR Desafio",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "gregcjni@gmail.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "petstore.swagger.io",
+    "basePath": "/v2",
+    "tags": [
+      {
+        "name": "Carrinho",
+        "description": "Gestão de carrinho de compras"
+      },
+      {
+        "name": "Produtos",
+        "description": "CRUD de produtos"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/product": {
+        "post": {
+          "tags": [
+            "Produtos"
+          ],
+          "summary": "Incluir novo produto no sistema",
+          "description": "",
+          "operationId": "adicionarProduto",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de produto a ser incluido no sistema",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ProdutoInclusao"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "$ref": "#/definitions/ProdutoRet"
+              }
+            },
+            "400": {
+              "description": "Problema na Requisição"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Produtos"
+          ],
+          "summary": "Atualizar Produto",
+          "description": "",
+          "operationId": "atualizarProduto",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Body",
+              "description": "Objeto com campos de produto a serem atualizados",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ProdutoAlteracao"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ProdutoRet"
+                }
+              }
+            },
+            "400": {
+              "description": "Problema na requisição"
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Produtos"
+          ],
+          "summary": "Busca produtos disponíveis",
+          "description": "Busca todos os produtos com status Ativo",
+          "operationId": "buscarProdutos",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ProdutoRet"
+                }
+              }
+            },
+            "400": {
+              "description": "Problema na requisição"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Produtos"
+          ],
+          "summary": "Exclui um produto",
+          "description": "",
+          "operationId": "excluirProduto",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Objeto Json com atributo de ID",
+              "required": true,
+              "schema": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso"
+            },
+            "400": {
+              "description": "Problema na Requisição"
+            }
+          }
+        }
+      },
+      "/product/all": {
+        "get": {
+          "tags": [
+            "Produtos"
+          ],
+          "summary": "Busca todos os produtos",
+          "description": "Busca todos os produto, independente do status",
+          "operationId": "buscarTodosProdutos",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ProdutoRet"
+                }
+              }
+            },
+            "400": {
+              "description": "Problema na requisição"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "ProdutoInclusao": {
+        "type": "object",
+        "required": [
+          "nome",
+          "preco",
+          "status"
+        ],
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "refrigerante"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "lata 350ml"
+          },
+          "imagem": {
+            "type": "string",
+            "example": "[url da imagem]"
+          },
+          "status": {
+            "type": "string",
+            "description": "status do produto no sistema",
+            "example": "ativo",
+            "enum": [
+              "ativo",
+              "inativo",
+              "excluido"
+            ]
+          },
+          "preco": {
+            "type": "number",
+            "example": "1.01"
+          }
+        }
+      },
+      "ProdutoAlteracao": {
+        "type": "object",
+        "required": [
+          "nome",
+          "preco",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "example": "refrigerante"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "lata 350ml"
+          },
+          "status": {
+            "type": "string",
+            "description": "status do produto no sistema",
+            "example": "ativo",
+            "enum": [
+              "ativo",
+              "inativo",
+              "excluido"
+            ]
+          },
+          "preco": {
+            "type": "number",
+            "example": "1.01"
+          }
+        }
+      },
+      "ProdutoRet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nome": {
+            "type": "string",
+            "example": "refrigerante"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "lata 350ml"
+          },
+          "imagem": {
+            "type": "string",
+            "example": "[url da imagem]"
+          },
+          "status": {
+            "type": "string",
+            "description": "status do produto no sistema",
+            "example": "ativo",
+            "enum": [
+              "ativo",
+              "inativo",
+              "excluido"
+            ]
+          },
+          "preco": {
+            "type": "number",
+            "example": "1.01"
+          }
+        }
+      }
+    }
+  }
