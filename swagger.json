@@ -1,307 +1,502 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "API para gestão de produtos, carrinho e pedidos de venda.",
-      "version": "1.0.0",
-      "title": "FR Desafio",
-      "termsOfService": "http://swagger.io/terms/",
-      "contact": {
-        "email": "gregcjni@gmail.com"
-      },
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+  "swagger": "2.0",
+  "info": {
+    "description": "API para gestão de produtos, carrinho e pedidos de venda.",
+    "version": "1.0.0",
+    "title": "FR Desafio",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "gregcjni@gmail.com"
     },
-    "host": "petstore.swagger.io",
-    "basePath": "/v2",
-    "tags": [
-      {
-        "name": "Carrinho",
-        "description": "Gestão de carrinho de compras"
-      },
-      {
-        "name": "Produtos",
-        "description": "CRUD de produtos"
-      }
-    ],
-    "schemes": [
-      "http"
-    ],
-    "paths": {
-      "/product": {
-        "post": {
-          "tags": [
-            "Produtos"
-          ],
-          "summary": "Incluir novo produto no sistema",
-          "description": "",
-          "operationId": "adicionarProduto",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Objeto de produto a ser incluido no sistema",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/ProdutoInclusao"
-              }
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "Produtos",
+      "description": "CRUD de produtos"
+    },
+    {
+      "name": "Carrinho",
+      "description": "Gestão de carrinho de compras"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/product": {
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Incluir novo produto no sistema",
+        "description": "",
+        "operationId": "adicionarProduto",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto de produto a ser incluido no sistema",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProdutoInclusao"
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "$ref": "#/definitions/ProdutoRet"
+            }
+          },
+          "400": {
+            "description": "Problema na Requisição"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Atualizar Produto",
+        "description": "",
+        "operationId": "atualizarProduto",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Body",
+            "description": "Objeto com campos de produto a serem atualizados",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProdutoAlteracao"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
                 "$ref": "#/definitions/ProdutoRet"
               }
-            },
-            "400": {
-              "description": "Problema na Requisição"
             }
-          }
-        },
-        "put": {
-          "tags": [
-            "Produtos"
-          ],
-          "summary": "Atualizar Produto",
-          "description": "",
-          "operationId": "atualizarProduto",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "Body",
-              "description": "Objeto com campos de produto a serem atualizados",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/ProdutoAlteracao"
-              }
-            }
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ProdutoRet"
-                }
-              }
-            },
-            "400": {
-              "description": "Problema na requisição"
-            }
-          }
-        },
-        "get": {
-          "tags": [
-            "Produtos"
-          ],
-          "summary": "Busca produtos disponíveis",
-          "description": "Busca todos os produtos com status Ativo",
-          "operationId": "buscarProdutos",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ProdutoRet"
-                }
-              }
-            },
-            "400": {
-              "description": "Problema na requisição"
-            }
-          }
-        },
-        "delete": {
-          "tags": [
-            "Produtos"
-          ],
-          "summary": "Exclui um produto",
-          "description": "",
-          "operationId": "excluirProduto",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Objeto Json com atributo de ID",
-              "required": true,
-              "schema": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "example": 1
-                  }
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso"
-            },
-            "400": {
-              "description": "Problema na Requisição"
-            }
+          },
+          "400": {
+            "description": "Problema na requisição"
           }
         }
       },
-      "/product/all": {
-        "get": {
-          "tags": [
-            "Produtos"
-          ],
-          "summary": "Busca todos os produtos",
-          "description": "Busca todos os produto, independente do status",
-          "operationId": "buscarTodosProdutos",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ProdutoRet"
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Busca produtos disponíveis",
+        "description": "Busca todos os produtos com status Ativo",
+        "operationId": "buscarProdutos",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProdutoRet"
+              }
+            }
+          },
+          "400": {
+            "description": "Problema na requisição"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Exclui um produto",
+        "description": "",
+        "operationId": "excluirProduto",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto Json com atributo de ID",
+            "required": true,
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
                 }
               }
-            },
-            "400": {
-              "description": "Problema na requisição"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Problema na Requisição"
           }
         }
       }
     },
-    "definitions": {
-      "ProdutoInclusao": {
-        "type": "object",
-        "required": [
-          "nome",
-          "preco",
-          "status"
+    "/product/all": {
+      "get": {
+        "tags": [
+          "Produtos"
         ],
-        "properties": {
-          "nome": {
-            "type": "string",
-            "example": "refrigerante"
+        "summary": "Busca todos os produtos",
+        "description": "Busca todos os produto, independente do status",
+        "operationId": "buscarTodosProdutos",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProdutoRet"
+              }
+            }
           },
-          "descricao": {
-            "type": "string",
-            "example": "lata 350ml"
+          "400": {
+            "description": "Problema na requisição"
+          }
+        }
+      }
+    },
+    "/cart": {
+      "post": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "inclui item ao carrinho",
+        "description": "indica o produto e a quantidade para adicionar ao carrinho",
+        "operationId": "incluirNoCarrinho",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                },
+                "quantidade": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1
+                }
+              }
+            }
           },
-          "imagem": {
-            "type": "string",
-            "example": "[url da imagem]"
-          },
-          "status": {
-            "type": "string",
-            "description": "status do produto no sistema",
-            "example": "ativo",
-            "enum": [
-              "ativo",
-              "inativo",
-              "excluido"
-            ]
-          },
-          "preco": {
-            "type": "number",
-            "example": "1.01"
+          "400": {
+            "description": "Problema na requisição"
           }
         }
       },
-      "ProdutoAlteracao": {
-        "type": "object",
-        "required": [
-          "nome",
-          "preco",
-          "status"
+      "get": {
+        "tags": [
+          "Carrinho"
         ],
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+        "summary": "mostra itens do carrinho",
+        "description": "indica o produto e a quantidade para adicionar ao carrinho",
+        "operationId": "exibirCarrinho",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "$ref": "#/definitions/Carrinho"
+            }
           },
-          "nome": {
-            "type": "string",
-            "example": "refrigerante"
-          },
-          "descricao": {
-            "type": "string",
-            "example": "lata 350ml"
-          },
-          "status": {
-            "type": "string",
-            "description": "status do produto no sistema",
-            "example": "ativo",
-            "enum": [
-              "ativo",
-              "inativo",
-              "excluido"
-            ]
-          },
-          "preco": {
-            "type": "number",
-            "example": "1.01"
+          "400": {
+            "description": "Problema na requisição"
           }
         }
-      },
-      "ProdutoRet": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+      }
+    },
+    "/cart/finish": {
+      "post": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "finalizar compra",
+        "description": "Executa finalização da compra para os itens que estão no carrinho",
+        "operationId": "finalizarCarrinho",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "$ref": "#/definitions/PedidoCabec"
+            }
           },
-          "nome": {
-            "type": "string",
-            "example": "refrigerante"
+          "400": {
+            "description": "Problema na requisição"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "listar pedidos",
+        "description": "retorna a lista dos pedidos com status diferentes de 'Cancelado' e 'Entregue'.",
+        "operationId": "listarPedido",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PedidoCabec"
+              }
+            }
           },
-          "descricao": {
-            "type": "string",
-            "example": "lata 350ml"
-          },
-          "imagem": {
-            "type": "string",
-            "example": "[url da imagem]"
-          },
-          "status": {
-            "type": "string",
-            "description": "status do produto no sistema",
-            "example": "ativo",
-            "enum": [
-              "ativo",
-              "inativo",
-              "excluido"
-            ]
-          },
-          "preco": {
-            "type": "number",
-            "example": "1.01"
+          "400": {
+            "description": "Problema na requisição"
           }
         }
       }
     }
+  },
+  "definitions": {
+    "ProdutoInclusao": {
+      "type": "object",
+      "required": [
+        "nome",
+        "preco",
+        "status"
+      ],
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "refrigerante"
+        },
+        "descricao": {
+          "type": "string",
+          "example": "lata 350ml"
+        },
+        "imagem": {
+          "type": "string",
+          "example": "[url da imagem]"
+        },
+        "status": {
+          "type": "string",
+          "description": "status do produto no sistema",
+          "example": "ativo",
+          "enum": [
+            "ativo",
+            "inativo",
+            "excluido"
+          ]
+        },
+        "preco": {
+          "type": "number",
+          "example": "1.01"
+        }
+      }
+    },
+    "ProdutoAlteracao": {
+      "type": "object",
+      "required": [
+        "nome",
+        "preco",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nome": {
+          "type": "string",
+          "example": "refrigerante"
+        },
+        "descricao": {
+          "type": "string",
+          "example": "lata 350ml"
+        },
+        "status": {
+          "type": "string",
+          "description": "status do produto no sistema",
+          "example": "ativo",
+          "enum": [
+            "ativo",
+            "inativo",
+            "excluido"
+          ]
+        },
+        "preco": {
+          "type": "number",
+          "example": "1.01"
+        }
+      }
+    },
+    "ProdutoRet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nome": {
+          "type": "string",
+          "example": "refrigerante"
+        },
+        "descricao": {
+          "type": "string",
+          "example": "lata 350ml"
+        },
+        "imagem": {
+          "type": "string",
+          "example": "[url da imagem]"
+        },
+        "status": {
+          "type": "string",
+          "description": "status do produto no sistema",
+          "example": "ativo",
+          "enum": [
+            "ativo",
+            "inativo",
+            "excluido"
+          ]
+        },
+        "preco": {
+          "type": "number",
+          "example": "1.01"
+        }
+      }
+    },
+    "PedidoCabec": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "formaPagamento": {
+          "type": "string",
+          "example": "Cartão",
+          "enum": [
+            "Cartão",
+            "Dinheiro"
+          ]
+        },
+        "enderecoEntrega": {
+          "type": "string",
+          "example": "Av. Fulano"
+        },
+        "valorTotal": {
+          "type": "number",
+          "example": "9.12"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status que indica situação atual do pedido",
+          "example": "Novo",
+          "enum": [
+            "Canceladp",
+            "Novo",
+            "Aceito",
+            "Saiu para entrega",
+            "Entregue"
+          ]
+        },
+        "preco": {
+          "type": "number",
+          "example": "1.01"
+        }
+      }
+    },
+    "Carrinho": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status que indica situação atual do Carrinho",
+          "example": "Ativo",
+          "enum": [
+            "Ativo",
+            "Inativo",
+            "Finalizado"
+          ]
+        },
+        "itensCarrinhos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItensCarrino"
+          }
+        }
+      }
+    },
+    "ItensCarrino": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "idProduto": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "idCarrinho": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantidade": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
   }
+}

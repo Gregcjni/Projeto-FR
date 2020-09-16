@@ -35,11 +35,11 @@ async function listOrders(req, res, next) {
                 model: ItensPedidos,
                 attributes: ["nome"]
             },
-            limit, 
+            limit,
             offset
         });
 
-        res.status(200).send(result)
+        res.status(200).send(result);
 
     } catch (error) {
         res.send(error);
