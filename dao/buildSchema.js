@@ -34,8 +34,7 @@ async function tablesInit(connection) {
         status: { type: Sequelize.STRING }
     });
 
-    const Cart = connection.define('carrinhos', {
-        idCliente: { type: Sequelize.INTEGER },
+    const Cart = connection.define('carrinhos', { 
         status: { type: Sequelize.STRING }
     });
 

@@ -4,8 +4,7 @@ const ItensCarrinhos = require('./ItensCarrinhos');
 
 class Carrinhos extends Model {
     static init(connection) {
-        super.init({
-            idCliente: DataTypes.INTEGER,
+        super.init({ 
             status: DataTypes.STRING,
         }, { sequelize: connection })
     }

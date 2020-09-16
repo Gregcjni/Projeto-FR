@@ -1,4 +1,3 @@
-"use strict";
 const Carrinhos = require('../models/Carrinhos');
 const Produtos = require('../models/Produtos');
 const ItensCarrinhos = require('../models/ItensCarrinhos');
@@ -24,7 +23,7 @@ async function addProductsToCart(req, res, next) {
         });
 
         const id = structure.id;
-        res.status(200).send({ id });
+        res.status(200).send( { idCarrinho: id } );
     } catch (error) {
         res.send(error);
     }
@@ -37,9 +36,7 @@ async function finish(req, res, next) {
         //Consulta do carrinho fazendo um join de forma automática com seus itens e produtos 
         const cart = await Carrinhos.findOne({
             where: { status: "Ativo" }, include: {
-                model: ItensCarrinhos, include: {
-                    model: Produtos
-                }
+                model: ItensCarrinhos 
             }
         });
 
@@ -53,14 +50,17 @@ async function finish(req, res, next) {
 
         //validação do valor total do pedido 
         const itens = cart.ItensCarrinhos;
+        
         for (var index = 0; index < itens.length; index++) {
-            totalValue += (itens[index].Produto.preco * itens[index].quantidade)
+            product = await Produtos.findByPk(itens[index].idProduto);
+            totalValue += (product.preco * itens[index].quantidade)
+            //totalValue += (itens[index].Produto.preco * itens[index].quantidade);
         }
-
+         
         //retorno com status 400, dado o controle por parte do usuário do valor total
         if (totalValue < 10)
             return res.status(400).send({ resultMessage: "Não é possível gerar um pedido com valor inferior a R$10,00" });
-
+        
         //Criação do pedido
         const order = await Pedidos.create({
             formaPagamento: formaPagamento,
@@ -71,7 +71,7 @@ async function finish(req, res, next) {
 
         //criação dos itens do pedido, a partir dos itens do carrinho
         for (var index = 0; index < itens.length; index++) {
-            let product = itens[index].Produto;
+            let product = await Produtos.findByPk(itens[index].idProduto);
             order.addProdutos(product, {
                 through: {
                     quantidade: itens[index].quantidade,

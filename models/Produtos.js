@@ -3,7 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 
 class Produtos extends Model {
     static init(connection) {
-        super.init({
+        super.init({ 
             nome: DataTypes.STRING,
             descricao: DataTypes.TEXT,
             preco: DataTypes.FLOAT,

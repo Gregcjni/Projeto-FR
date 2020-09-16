@@ -4,13 +4,11 @@ const Joi = require('joi');
 const listOrderSchema = Joi.object({
     limit:
         Joi.number()
-            .integer()
-            .required()
+            .integer() 
             .min(1),
     offset:
         Joi.number()
-            .integer()
-            .required()
+            .integer() 
             .min(1),
 });
 
