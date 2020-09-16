@@ -68,7 +68,12 @@ const productGetSchema = Joi.object({
     offset:
         Joi.number()
             .integer()
-            .min(1)
+            .min(1),
+    nome:
+        Joi.string(),
+        
+    tags:
+        Joi.string()       
 });
 
 function validateProductCreation(req, res, next) {
